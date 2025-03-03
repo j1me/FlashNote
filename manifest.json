@@ -1,13 +1,13 @@
 {
-    "name": "P2P Messaging PWA",
-    "short_name": "P2PChat",
+    "name": "FlashNote",
+    "short_name": "FlashNote",
     "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#ffffff",
     "icons": [
         {
-            "src": "icon.png",
+            "src": "./icon.png",
             "sizes": "192x192",
             "type": "image/png"
         }
