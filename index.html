@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P Messaging PWA</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="webrtc.js"></script>
+    <script defer src="qrcode.min.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <h2>P2P Message Widget</h2>
+        <div id="pairing">
+            <button id="generateQR">Generate QR Code</button>
+            <input type="file" id="scanQR" accept="image/*">
+            <div id="qrContainer"></div>
+        </div>
+
+        <div id="messageContainer">
+            <textarea id="messageInput" placeholder="Type a message..."></textarea>
+            <button id="sendMessage">Send</button>
+        </div>
+
+        <div id="receivedMessage">No message yet.</div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js');
+        }
+    </script>
+
+</body>
+</html>
+    
