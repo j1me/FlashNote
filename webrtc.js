@@ -51,7 +51,6 @@ scanQRInput.addEventListener("change", async event => {
         const answer = await peerConnection.createAnswer();
         await peerConnection.setLocalDescription(answer);
 
-        // Show Answer as QR Code for the other device to scan
         qrContainer.innerHTML = "";
         new QRCode(qrContainer, JSON.stringify(peerConnection.localDescription));
     };
@@ -76,4 +75,41 @@ window.onload = () => {
         receivedMessage.textContent = lastMessage;
     }
 };
+
+// Dragging Functionality for Widget
+const widget = document.getElementById("flashnote-widget");
+let isDragging = false, startX, startY, initialX, initialY;
+
+widget.addEventListener("mousedown", startDrag);
+widget.addEventListener("touchstart", startDrag);
+
+function startDrag(event) {
+    isDragging = true;
+    widget.style.cursor = "grabbing";
+    startX = event.type.includes("touch") ? event.touches[0].clientX : event.clientX;
+    startY = event.type.includes("touch") ? event.touches[0].clientY : event.clientY;
+    initialX = widget.offsetLeft;
+    initialY = widget.offsetTop;
+    document.addEventListener("mousemove", drag);
+    document.addEventListener("touchmove", drag);
+    document.addEventListener("mouseup", stopDrag);
+    document.addEventListener("touchend", stopDrag);
+}
+
+function drag(event) {
+    if (!isDragging) return;
+    let currentX = event.type.includes("touch") ? event.touches[0].clientX : event.clientX;
+    let currentY = event.type.includes("touch") ? event.touches[0].clientY : event.clientY;
+    let deltaX = currentX - startX;
+    let deltaY = currentY - startY;
+    widget.style.left = initialX + deltaX + "px";
+    widget.style.top = initialY + deltaY + "px";
+}
+
+function stopDrag() {
+    isDragging = false;
+    widget.style.cursor = "grab";
+    document.removeEventListener("mousemove", drag);
+    document.removeEventListener("touchmove", drag);
+}
     
